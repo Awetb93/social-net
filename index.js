@@ -40,8 +40,9 @@ const app = express()
 app.use(cors())
 app.use(graphqlUploadExpress())
 app.use(express.static("public"))
-server.applyMiddleware({app})
 app.get("*",(req,res)=>{res.sendFile(path.resolve(__dirname,"public","index.html"))})
+server.applyMiddleware({app})
+
 const connect = async () => {
     try {
       await mongoose.connect(`mongodb+srv://admin123:${process.env.dbpassword}@cluster0.ipa6q.mongodb.net/${process.env.dbname}?retryWrites=true&w=majority`,{useCreateIndex:true,useFindAndModify:false,useNewUrlParser:true,useUnifiedTopology:true})
