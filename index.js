@@ -38,9 +38,9 @@ const server = new ApolloServer({
 },uploads:false })
 const app = express()
 app.use(cors())
+app.get("*",(req,res)=>{res.sendFile(path.resolve(__dirname,"public","index.html"))})
 app.use(graphqlUploadExpress())
 app.use(express.static("public"))
-app.get("*",(req,res)=>{res.sendFile(path.resolve(__dirname,"public","index.html"))})
 server.applyMiddleware({app})
 
 const connect = async () => {
