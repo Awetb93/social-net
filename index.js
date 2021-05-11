@@ -38,14 +38,14 @@ const server = new ApolloServer({
 },uploads:false })
 const app = express()
 app.use(cors())
-app.get("*",(req,res)=>{res.sendFile(path.resolve(__dirname,"public","index.html"))})
 app.use(graphqlUploadExpress())
 app.use(express.static("public"))
+app.get("*",(req,res)=>{res.sendFile(__dirname,"public","index.html")})
 server.applyMiddleware({app})
 
 const connect = async () => {
     try {
-      await mongoose.connect(`mongodb+srv://admin123:${process.env.dbpassword}@cluster0.ipa6q.mongodb.net/${process.env.dbname}?retryWrites=true&w=majority`,{useCreateIndex:true,useFindAndModify:false,useNewUrlParser:true,useUnifiedTopology:true})
+      await mongoose.connect(process.env.dburl,{useCreateIndex:true,useFindAndModify:false,useNewUrlParser:true,useUnifiedTopology:true})
         console.log("db connected")  
         app.listen(port,()=>console.log("welcome"))
     } catch (e) {
